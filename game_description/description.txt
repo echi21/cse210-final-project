@@ -1,0 +1,37 @@
+
+What program are we going to create?
+	"Soccerbomb": An arcade game where you control a player at the left side of the screen who needs
+	to move and go to the right side. Enemy players will be moving, trying to touch the player; if they
+	do it, it is game over (hopefully with explosions). The game's purpose is to make the player reach
+	the goal (which will be at the edge of the right side of the screen).
+
+What technologies will we use?
+	We will use python 3.9 version and the arcade library.
+
+What features will we include?
+	We believe we will include the following features:
+
+	Main Scene 
+	• Play button.
+	• Extra (if there is time): Exit button.
+	
+	Game Scene 
+	• User-controlled player.
+	• Enemy players.
+	• Collision detection.
+	• Extra (if there is time): Score display, life display, pause, and sound effects.
+
+	Help Scene 
+	• Extra (if there is time): Instructions text.
+
+	Win Scene 
+	• Announcement.
+
+	Lose Scene 
+	• Announcement.
+	• Extra (if there is time): Restart button.
+
+What is your timeline?
+	Our timeline is specified in the course. We will be working on this program for 4 weeks
+	submitting the advances each week according to the instructions, and the deadline will
+	probably between 9 to 11 on December.
