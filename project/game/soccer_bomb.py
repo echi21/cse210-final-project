@@ -1,7 +1,7 @@
 import math
 import arcade
 import random
-import constants
+from game import constants
 
 
 class Enemy(arcade.Sprite):
@@ -60,10 +60,10 @@ class SoccerBomb(arcade.Window):
         self.music = None
 
         # Load your background music and sound effects
-        self.background_music = arcade.load_sound("sound_effects/ambience_sound.wav")
-        self.collision_sound = arcade.load_sound("sound_effects/scream_explosion.wav")
-        self.goal_sound = arcade.load_sound("sound_effects/goal_reaction.wav")
-        self.fatigue_sound = arcade.load_sound("sound_effects/walking_breath.wav")
+        self.background_music = arcade.load_sound("game/sound_effects/ambience_sound.wav")
+        self.collision_sound = arcade.load_sound("game/sound_effects/scream_explosion.wav")
+        self.goal_sound = arcade.load_sound("game/sound_effects/goal_reaction.wav")
+        self.fatigue_sound = arcade.load_sound("game/sound_effects/walking_breath.wav")
 
         self.paused = None
         self.setup()
@@ -79,8 +79,8 @@ class SoccerBomb(arcade.Window):
 
         self.enemies_list = arcade.SpriteList()
         self.all_sprites = arcade.SpriteList()
-        self.player = arcade.Sprite("images/player.png", constants.SCALING)
-        self.soccer_goal = arcade.Sprite("images/soccer_goal.png", constants.SCALING)
+        self.player = arcade.Sprite("game/images/player.png", constants.SCALING)
+        self.soccer_goal = arcade.Sprite("game/images/soccer_goal.png", constants.SCALING)
 
         # The soccer field image author is from “Vecteezy.com”.
         # This resource is used under the Free Licenser
@@ -97,7 +97,7 @@ class SoccerBomb(arcade.Window):
 
         # Create the enemy_players
         for i in range(constants.ENEMIES_QUANTITY):
-            enemy = Enemy("images/enemy_player.png", constants.SCALING)
+            enemy = Enemy("game/images/enemy_player.png", constants.SCALING)
 
             # Position the enemy_players
             enemy.center_x = random.randint(self.width, self.width + 80)
@@ -210,10 +210,3 @@ class SoccerBomb(arcade.Window):
         # Put the text on the screen.
         output = f"Score: {self.score}"
         arcade.draw_text(output, 10, 20, arcade.color.WHITE, 16)
-
-
-# Main code entry point
-if __name__ == "__main__":
-    app = SoccerBomb(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
-    app.center_window()
-    arcade.run()
