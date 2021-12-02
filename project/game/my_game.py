@@ -1,69 +1,34 @@
 import arcade
-from game import constants
-from game.enemy_team import EnemyTeam
-from game.input_service import InputService
-from game.player import Player
+from game.configuration import Configuration
 
 
-class SoccerBomb(arcade.Window):
+class MyGame(arcade.Window):
     def __init__(self, width, height, title):
         """Initialize the game
         """
         super().__init__(width, height, title)
-
         # Set up the empty sprite lists
         self.all_sprites = None
-
         # Set up the player. All sprites in arcade have a specific size and position in the window.
         self.player = None
         self.soccer_goal = None
         self.enemy_team = None
         self.score = 0
-        self.music = None
+        self.ambience = None
         self.input_service = None
         self.paused = None
-
-        # Load your background music and sound effects
-        self.background_music = arcade.load_sound("game/sound_effects/ambience_sound.wav")
-        self.collision_sound = arcade.load_sound("game/sound_effects/scream_explosion.wav")
-        self.goal_sound = arcade.load_sound("game/sound_effects/goal_reaction.wav")
-        self.fatigue_sound = arcade.load_sound("game/sound_effects/walking_breath.wav")
-
+        self.conf = None
         self.setup()
 
     def setup(self):
         """Get the game ready to play
         """
-        # Set the background color
-        arcade.set_background_color(arcade.color.AMAZON)
-
-        # Play your background music
-        self.music = arcade.play_sound(self.background_music, True)
-
-        # self.enemies_list = arcade.SpriteList()
-        self.all_sprites = arcade.SpriteList()
-
-        self.player = Player(self.width, self.height)
-        self.player = self.player.get_his_sprite()
-
-        self.enemy_team = EnemyTeam(self.width, self.height)
-
-        # self.player = arcade.Sprite("game/images/player.png", constants.SCALING)
-        self.soccer_goal = arcade.Sprite("game/images/soccer_goal.png", constants.SCALING)
-
-        # The soccer field image author is from “Vecteezy.com”.
-        # This resource is used under the Free Licenser
-
-        self.soccer_goal.center_y = self.height / 2
-        self.soccer_goal.right = constants.SCREEN_WIDTH
-
-        self.all_sprites.append(self.player)  # Check this
-        self.all_sprites.append(self.soccer_goal)
-
-        for enemy in self.enemy_team.get_enemies_list():
-            self.all_sprites.append(enemy)
-
-        self.input_service = InputService(self.player, self.fatigue_sound)
+        self.conf = Configuration(self.width, self.height)
+        self.enemy_team = self.conf.get_enemy_team()
+        self.all_sprites = self.conf.get_sprite_list()
+        self.player = self.all_sprites[0]
+        self.soccer_goal = self.all_sprites[1]
+        self.input_service = self.conf.get_input_service()
 
     # This method must be in the window class. If the name is changed, it doesn't work.
     # self.paused is used to store the condition when the user presses the P key.
@@ -88,13 +53,13 @@ class SoccerBomb(arcade.Window):
         # Did you hit anything? If so, end the game
         # if self.player.collides_with_list(self.enemies_list):
         if self.player.collides_with_list(self.enemy_team.get_enemies_list()):
-            arcade.play_sound(self.collision_sound)
+            arcade.play_sound(self.conf.get_sound().get_collision())
             arcade.pause(6)
             arcade.close_window()
 
         if arcade.check_for_collision(self.player, self.soccer_goal):
-            arcade.stop_sound(self.music)
-            arcade.play_sound(self.goal_sound)
+            arcade.stop_sound(self.conf.get_ambience_object())
+            arcade.play_sound(self.conf.get_sound().get_goal())
             self.score += 1
             arcade.pause(6)
             self.setup()

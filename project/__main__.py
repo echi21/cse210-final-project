@@ -1,10 +1,10 @@
 import arcade
 from game import constants
-from game.soccer_bomb import SoccerBomb
+from game.my_game import MyGame
 
 
 def main():
-    app = SoccerBomb(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
+    app = MyGame(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
     app.center_window()
     arcade.run()
 
