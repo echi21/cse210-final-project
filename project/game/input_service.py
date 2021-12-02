@@ -1,5 +1,6 @@
 import arcade
 from game import constants
+from game.sound_library import SoundLibrary
 
 
 class InputService:
@@ -7,10 +8,10 @@ class InputService:
     Stereotype: 
         Service Provider
     """
-    def __init__(self, player, fatigue_sound):
+    def __init__(self, player):
         self.paused = None
         self.player = player
-        self.fatigue_sound = fatigue_sound
+        self.fatigue_sound = SoundLibrary().get_fatigue()
 
     def on_key_press(self, symbol, modifiers):
         # Quit immediately
