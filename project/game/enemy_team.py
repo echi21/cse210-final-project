@@ -1,8 +1,10 @@
+
+import pathlib
 import math
 import random
 import arcade
 from game import constants
-from game.sound_library import SoundLibrary
+
 
 # With arcade we can't extend more than one class from arcade.Window. If so, the program will breack.
 # I discovered that after days of changing and restarting the project.
@@ -18,9 +20,10 @@ class EnemyTeam:
         self._create_enemies()
 
     def _create_enemies(self):
+        enemy_image = (pathlib.Path(__file__).parent / "images/enemy_player.png")
         # Create the enemy_players
         for i in range(constants.ENEMIES_QUANTITY):
-            enemy = arcade.Sprite("game/images/enemy_player.png", constants.ENEMIES_SCALING)
+            enemy = arcade.Sprite(enemy_image.__str__(), constants.ENEMIES_SCALING)
             # Position the enemy_players
             enemy.center_x = random.randint(self._width, self._width + 80)
             enemy.center_y = random.randint(10, self._height - 10)
