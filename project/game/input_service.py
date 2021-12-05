@@ -9,7 +9,7 @@ class InputService:
         Service Provider
     """
     def __init__(self, player):
-        self.paused = None
+        self.paused = False
         self.player = player
         self.fatigue_sound = SoundLibrary().get_fatigue()
 
@@ -17,11 +17,11 @@ class InputService:
         # Quit immediately
         if symbol == arcade.key.Q:
             # Here I should create some window to confirm finishing the game
-            arcade.close_window()
+            # arcade.close_window()
+            arcade.exit()
 
         if symbol == arcade.key.P:
             self.paused = not self.paused
-            return self.paused  # I needed this to tell the caller about the pause action.
 
         if symbol == arcade.key.I or symbol == arcade.key.UP:
             self.player.change_y = constants.PLAYER_SPEED
@@ -56,3 +56,6 @@ class InputService:
                 or symbol == arcade.key.LEFT
                 or symbol == arcade.key.RIGHT):
             self.player.change_x = 0
+
+    def get_paused(self):
+        return self.paused
