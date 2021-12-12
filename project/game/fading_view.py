@@ -1,17 +1,6 @@
 import arcade
-import constants
-import sound_library
-
-
+import game.constants
 # from game.fog_lib import FogLib
-
-
-# def start_music():
-#    return arcade.play_sound(sound_library.SoundLibrary().get_intro(), 1, -1, True)
-
-
-def detener_la_m(una_cancion):
-    arcade.stop_sound(una_cancion)
 
 
 class FadingView(arcade.View):
@@ -31,14 +20,13 @@ class FadingView(arcade.View):
     def update_fade(self, next_view=None):
 
         if self.fade_out is not None:
-            self.fade_out += constants.FADE_RATE
+            self.fade_out += game.constants.FADE_RATE
             if self.fade_out is not None and self.fade_out > 255 and next_view is not None:
                 game_view = next_view()
-                # game_view.setup()
                 self.window.show_view(game_view)
 
         if self.fade_in is not None:
-            self.fade_in -= constants.FADE_RATE
+            self.fade_in -= game.constants.FADE_RATE
             if self.fade_in <= 0:
                 self.fade_in = None
 

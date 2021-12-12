@@ -1,5 +1,5 @@
 import arcade
-import sound_library
+import game.sound_library
 
 
 class HandleCollision:
@@ -17,7 +17,7 @@ class HandleCollision:
         self.paused = None
         self.enemy_flag = False
         self.score_flag = False
-        self.sound = sound_library.SoundLibrary()
+        self.sound = game.sound_library.SoundLibrary()
 
     def preparing_update(self, delta_time):
 
