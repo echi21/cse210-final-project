@@ -1,5 +1,5 @@
 import arcade
-from game.sound_library import SoundLibrary
+import sound_library
 
 
 class HandleCollision:
@@ -15,8 +15,9 @@ class HandleCollision:
         self.ambience_obj = ambience_object
         self.scream_obj = scream_object
         self.paused = None
-        self.flag = False
-        self.sound = SoundLibrary()
+        self.enemy_flag = False
+        self.score_flag = False
+        self.sound = sound_library.SoundLibrary()
 
     def preparing_update(self, delta_time):
 
@@ -33,7 +34,7 @@ class HandleCollision:
             arcade.stop_sound(self.scream_obj)
             arcade.play_sound(self.sound.get_collision())
             arcade.pause(6)
-            arcade.exit()
+            self.enemy_flag = True
 
     def handle_player_soccer_bomb_collision(self):
         """"""
@@ -42,7 +43,7 @@ class HandleCollision:
             arcade.stop_sound(self.scream_obj)
             arcade.play_sound(self.sound.get_goal())
             arcade.pause(6)
-            self.flag = True
+            self.score_flag = True
 
     def handle_player_on_screen_collision(self):
         # Keep the player on screen
@@ -58,5 +59,8 @@ class HandleCollision:
         if self.player.left < 0:
             self.player.left = 0
 
-    def get_flag(self):
-        return self.flag
+    def get_enemy_flag(self):
+        return self.enemy_flag
+
+    def get_score_flag(self):
+        return self.score_flag

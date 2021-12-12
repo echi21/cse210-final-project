@@ -1,6 +1,6 @@
 import arcade
-from game import constants
-from game.sound_library import SoundLibrary
+import constants
+import sound_library
 
 
 class InputService:
@@ -11,31 +11,30 @@ class InputService:
     def __init__(self, player):
         self.paused = False
         self.player = player
-        self.fatigue_sound = SoundLibrary().get_fatigue()
+        self.fatigue_sound = sound_library.SoundLibrary().get_fatigue()
 
     def on_key_press(self, symbol, modifiers):
         # Quit immediately
-        if symbol == arcade.key.Q:
-            # Here I should create some window to confirm finishing the game
+        if symbol == arcade.key.ESCAPE:
             # arcade.close_window()
             arcade.exit()
 
         if symbol == arcade.key.P:
             self.paused = not self.paused
 
-        if symbol == arcade.key.I or symbol == arcade.key.UP:
+        if symbol == arcade.key.UP:
             self.player.change_y = constants.PLAYER_SPEED
-            arcade.play_sound(self.fatigue_sound)
+            # arcade.play_sound(self.fatigue_sound)
 
-        if symbol == arcade.key.K or symbol == arcade.key.DOWN:
+        if symbol == arcade.key.DOWN:
             self.player.change_y = -1 * constants.PLAYER_SPEED
-            arcade.play_sound(self.fatigue_sound)
+            # arcade.play_sound(self.fatigue_sound)
 
-        if symbol == arcade.key.J or symbol == arcade.key.LEFT:
+        if symbol == arcade.key.LEFT:
             self.player.change_x = -1 * constants.PLAYER_SPEED
             arcade.play_sound(self.fatigue_sound)
 
-        if symbol == arcade.key.L or symbol == arcade.key.RIGHT:
+        if symbol == arcade.key.RIGHT:
             self.player.change_x = constants.PLAYER_SPEED
             arcade.play_sound(self.fatigue_sound)
 
@@ -45,16 +44,11 @@ class InputService:
             symbol {int} -- Which key was pressed
             modifiers {int} -- Which modifiers were pressed
         """
-        if (symbol == arcade.key.I
-                or symbol == arcade.key.K
-                or symbol == arcade.key.UP
-                or symbol == arcade.key.DOWN):
+
+        if symbol == arcade.key.UP or symbol == arcade.key.DOWN:
             self.player.change_y = 0
 
-        if (symbol == arcade.key.J
-                or symbol == arcade.key.L
-                or symbol == arcade.key.LEFT
-                or symbol == arcade.key.RIGHT):
+        if symbol == arcade.key.LEFT or symbol == arcade.key.RIGHT:
             self.player.change_x = 0
 
     def get_paused(self):
