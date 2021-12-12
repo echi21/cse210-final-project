@@ -1,14 +1,20 @@
+
 import arcade
-from game import constants
-from game.my_game_view import MyGame
+import game.constants
+import game.introduction_view
 
 
 def main():
-    app_window = MyGame(constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT, constants.SCREEN_TITLE)
-    app_window.center_window()
+    """ Startup """
+    window = arcade.Window(game.constants.SCREEN_WIDTH, game.constants.SCREEN_HEIGHT, "SoccerBomb")
+    # Declaring a variable to use in the introduction_view class to play the initial music and then
+    # to use it in the menu_view class to stop the sound before the game starts.
+    window.music = None
+    window.center_window()
+    intro_view = game.introduction_view.IntroductionView()
+    window.show_view(intro_view)
     arcade.run()
 
 
-# Main code entry point
 if __name__ == "__main__":
     main()

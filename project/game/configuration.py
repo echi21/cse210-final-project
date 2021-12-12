@@ -2,11 +2,11 @@
 # from pathlib import Path
 import pathlib
 import arcade
-import constants
-import enemy_team
-import handle_collision
-import input_service
-import sound_library
+import game.constants
+import game.enemy_team
+import game.handle_collision
+import game.input_service
+import game.sound_library
 
 
 class Configuration:
@@ -23,7 +23,7 @@ class Configuration:
         self.soccer_goal = None
         self.input_service = None
         self.handle_collision = None
-        self.sound = sound_library.SoundLibrary()
+        self.sound = game.sound_library.SoundLibrary()
         self.setup()
 
     def setup(self):
@@ -55,19 +55,19 @@ class Configuration:
         self.all_sprites = arcade.SpriteList()
 
         # Creating the enemies
-        self.enemy_team = enemy_team.EnemyTeam(self.width, self.height)
+        self.enemy_team = game.enemy_team.EnemyTeam(self.width, self.height)
 
         # Creating the player
         player_image = (pathlib.Path(__file__).parent / "images/player.png")
-        self.player = arcade.Sprite(player_image.__str__(), constants.PLAYER_SCALING)
+        self.player = arcade.Sprite(player_image.__str__(), game.constants.PLAYER_SCALING)
         self.player.center_y = self.height / 2
         self.player.left = 0
 
         # Creating the soccer goal
         soccer_g_image = (pathlib.Path(__file__).parent / "images/soccer_goal.png")
-        self.soccer_goal = arcade.Sprite(soccer_g_image.__str__(), constants.SOCCER_G_SCALING)
+        self.soccer_goal = arcade.Sprite(soccer_g_image.__str__(), game.constants.SOCCER_G_SCALING)
         self.soccer_goal.center_y = self.height / 2
-        self.soccer_goal.right = constants.SCREEN_WIDTH - 10
+        self.soccer_goal.right = game.constants.SCREEN_WIDTH - 10
 
         # Apending the player, soccer goal and enemies in the all_sprites list
         self.all_sprites.append(self.player)
@@ -78,11 +78,12 @@ class Configuration:
         for enemy in self.enemy_team.get_enemies_list():
             self.all_sprites.append(enemy)
 
-        self.input_service = input_service.InputService(self.player)
+        self.input_service = game.input_service.InputService(self.player)
 
-        self.handle_collision = handle_collision.HandleCollision(self.width, self.height, self.player, self.soccer_goal,
-                                                                 self.enemy_team, self.all_sprites,
-                                                                 self.get_ambience_object(), self.get_scream_object())
+        self.handle_collision = game.handle_collision.HandleCollision(self.width, self.height, self.player,
+                                                                      self.soccer_goal, self.enemy_team,
+                                                                      self.all_sprites, self.get_ambience_object(),
+                                                                      self.get_scream_object())
 
     def get_background(self):
         return self.background

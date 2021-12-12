@@ -1,11 +1,11 @@
 import pathlib
 import arcade
-import fading_view
-import instruction_view
-import sound_library
+import game.fading_view
+import game.instruction_view
+import game.sound_library
 
 
-class IntroductionView(fading_view.FadingView):
+class IntroductionView(game.fading_view.FadingView):
     """ Class that manages the 'introduction' view. """
     def __init__(self):
         super().__init__()
@@ -15,7 +15,7 @@ class IntroductionView(fading_view.FadingView):
         # Set the background color
         field_image = (pathlib.Path(__file__).parent / "images/intro.png")
         self.background = arcade.load_texture(field_image.__str__())
-        self.window.music = arcade.play_sound(sound_library.SoundLibrary().get_intro(), 1, -1, True)
+        self.window.music = arcade.play_sound(game.sound_library.SoundLibrary().get_intro(), 1, -1, True)
 
     def on_draw(self):
         """ Draw the menu """
@@ -31,7 +31,7 @@ class IntroductionView(fading_view.FadingView):
 
     def on_update(self, delta_time: float):
 
-        self.update_fade(next_view=instruction_view.InstructionView)
+        self.update_fade(next_view=game.instruction_view.InstructionView)
         self.time_counter += delta_time * 1
         self.introduction_timed()
 

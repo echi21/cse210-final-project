@@ -1,6 +1,6 @@
 import pathlib
 import arcade
-import my_game_view
+import game.my_game_view
 
 
 class GameOverView(arcade.View):
@@ -27,7 +27,7 @@ class GameOverView(arcade.View):
             # This line is to receive the ambience object in order to stop the sound before the game
             # starts again, to avoid the sound overlap
             arcade.stop_sound(self.ambience_object)
-            my_new_game_view = my_game_view.MyGameView()
+            my_new_game_view = game.my_game_view.MyGameView()
             self.window.show_view(my_new_game_view)
 
         if key == arcade.key.ESCAPE:

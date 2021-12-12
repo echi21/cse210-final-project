@@ -1,6 +1,6 @@
 import arcade
-import configuration
-import game_over_view
+import game.configuration
+import game.game_over_view
 
 
 class MyGameView(arcade.View):
@@ -15,7 +15,7 @@ class MyGameView(arcade.View):
     def on_show(self):
         """Get the game ready to play
         """
-        self.conf = configuration.Configuration(self.window.width, self.window.height)
+        self.conf = game.configuration.Configuration(self.window.width, self.window.height)
 
     def on_draw(self):
         """Draw all game objects
@@ -46,7 +46,7 @@ class MyGameView(arcade.View):
         self.conf.get_handle_collision().preparing_update(delta_time)
 
         if self.conf.get_handle_collision().get_enemy_flag():
-            go_view = game_over_view.GameOverView()
+            go_view = game.game_over_view.GameOverView()
             # This line is to retrieve and sent the ambience object to the game_over_view class
             go_view.receive_ambience_object(self.retieve_ambience_obj())
             self.window.show_view(go_view)

@@ -1,10 +1,10 @@
 import pathlib
 import arcade
-import fading_view
-import menu_view
+import game.fading_view
+import game.menu_view
 
 
-class InstructionView(fading_view.FadingView):
+class InstructionView(game.fading_view.FadingView):
     """ Manage the 'game' view for our program. """
     def __init__(self):
         super().__init__()
@@ -27,7 +27,7 @@ class InstructionView(fading_view.FadingView):
             self.fade_out = 0
 
     def on_update(self, delta_time: float):
-        self.update_fade(next_view=menu_view.MenuView)
+        self.update_fade(next_view=game.menu_view.MenuView)
         self.time_counter += delta_time * 1
         self.introduction_timed()
 

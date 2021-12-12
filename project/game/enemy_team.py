@@ -3,7 +3,7 @@ import pathlib
 import math
 import random
 import arcade
-import constants
+import game.constants
 
 
 # With arcade we can't extend more than one class from arcade.Window. If so, the program will breack.
@@ -22,8 +22,8 @@ class EnemyTeam:
     def _create_enemies(self):
         enemy_image = (pathlib.Path(__file__).parent / "images/enemy_player.png")
         # Create the enemy_players
-        for i in range(constants.ENEMIES_QUANTITY):
-            enemy = arcade.Sprite(enemy_image.__str__(), constants.ENEMIES_SCALING)
+        for i in range(game.constants.ENEMIES_QUANTITY):
+            enemy = arcade.Sprite(enemy_image.__str__(), game.constants.ENEMIES_SCALING)
             # Position the enemy_players
             enemy.center_x = random.randint(self._width, self._width + 80)
             enemy.center_y = random.randint(10, self._height - 10)
@@ -64,5 +64,5 @@ class EnemyTeam:
 
                 # Taking into account the angle, calculate our change_x
                 # and change_y. Velocity is how fast the bullet travels.
-                enemy.change_x = math.cos(angle) * constants.ENEMIES_SPEED
-                enemy.change_y = math.sin(angle) * constants.ENEMIES_SPEED
+                enemy.change_x = math.cos(angle) * game.constants.ENEMIES_SPEED
+                enemy.change_y = math.sin(angle) * game.constants.ENEMIES_SPEED

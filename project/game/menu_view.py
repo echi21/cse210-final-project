@@ -1,10 +1,10 @@
 import pathlib
 import arcade
-import fading_view
-import my_game_view
+import game.fading_view
+import game.my_game_view
 
 
-class MenuView(fading_view.FadingView):
+class MenuView(game.fading_view.FadingView):
     """ Manage the 'game' view for our program. """
     def __init__(self):
         super().__init__()
@@ -31,4 +31,4 @@ class MenuView(fading_view.FadingView):
             arcade.exit()
 
     def on_update(self, dt):
-        self.update_fade(next_view=my_game_view.MyGameView)
+        self.update_fade(next_view=game.my_game_view.MyGameView)

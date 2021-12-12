@@ -1,6 +1,6 @@
 import arcade
-import constants
-import sound_library
+import game.constants
+import game.sound_library
 
 
 class InputService:
@@ -11,7 +11,7 @@ class InputService:
     def __init__(self, player):
         self.paused = False
         self.player = player
-        self.fatigue_sound = sound_library.SoundLibrary().get_fatigue()
+        self.fatigue_sound = game.sound_library.SoundLibrary().get_fatigue()
 
     def on_key_press(self, symbol, modifiers):
         # Quit immediately
@@ -23,19 +23,19 @@ class InputService:
             self.paused = not self.paused
 
         if symbol == arcade.key.UP:
-            self.player.change_y = constants.PLAYER_SPEED
+            self.player.change_y = game.constants.PLAYER_SPEED
             # arcade.play_sound(self.fatigue_sound)
 
         if symbol == arcade.key.DOWN:
-            self.player.change_y = -1 * constants.PLAYER_SPEED
+            self.player.change_y = -1 * game.constants.PLAYER_SPEED
             # arcade.play_sound(self.fatigue_sound)
 
         if symbol == arcade.key.LEFT:
-            self.player.change_x = -1 * constants.PLAYER_SPEED
+            self.player.change_x = -1 * game.constants.PLAYER_SPEED
             arcade.play_sound(self.fatigue_sound)
 
         if symbol == arcade.key.RIGHT:
-            self.player.change_x = constants.PLAYER_SPEED
+            self.player.change_x = game.constants.PLAYER_SPEED
             arcade.play_sound(self.fatigue_sound)
 
     def on_key_release(self, symbol: int, modifiers: int):
