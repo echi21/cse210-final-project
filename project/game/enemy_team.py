@@ -3,7 +3,7 @@ import pathlib
 import math
 import random
 import arcade
-from game import constants
+import constants
 
 
 # With arcade we can't extend more than one class from arcade.Window. If so, the program will breack.

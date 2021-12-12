@@ -1,13 +1,12 @@
 # import os
 # from pathlib import Path
 import pathlib
-
 import arcade
-from game import constants
-from game.enemy_team import EnemyTeam
-from game.handle_collision import HandleCollision
-from game.input_service import InputService
-from game.sound_library import SoundLibrary
+import constants
+import enemy_team
+import handle_collision
+import input_service
+import sound_library
 
 
 class Configuration:
@@ -24,8 +23,7 @@ class Configuration:
         self.soccer_goal = None
         self.input_service = None
         self.handle_collision = None
-        self.sound = SoundLibrary()
-
+        self.sound = sound_library.SoundLibrary()
         self.setup()
 
     def setup(self):
@@ -57,7 +55,7 @@ class Configuration:
         self.all_sprites = arcade.SpriteList()
 
         # Creating the enemies
-        self.enemy_team = EnemyTeam(self.width, self.height)
+        self.enemy_team = enemy_team.EnemyTeam(self.width, self.height)
 
         # Creating the player
         player_image = (pathlib.Path(__file__).parent / "images/player.png")
@@ -80,11 +78,11 @@ class Configuration:
         for enemy in self.enemy_team.get_enemies_list():
             self.all_sprites.append(enemy)
 
-        self.input_service = InputService(self.player)
+        self.input_service = input_service.InputService(self.player)
 
-        self.handle_collision = HandleCollision(self.width, self.height, self.player, self.soccer_goal,
-                                                self.enemy_team, self.all_sprites,
-                                                self.get_ambience_object(), self.get_scream_object())
+        self.handle_collision = handle_collision.HandleCollision(self.width, self.height, self.player, self.soccer_goal,
+                                                                 self.enemy_team, self.all_sprites,
+                                                                 self.get_ambience_object(), self.get_scream_object())
 
     def get_background(self):
         return self.background
